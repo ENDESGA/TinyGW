@@ -1,0 +1,75 @@
+###----------------------------------------------------------------------------
+# TinyGW Build Script - @ENDESGA - 2025 - Made in NZ - CC0 - foss forever
+###----------------------------------------------------------------------------
+name: build TinyGW
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  NAME: TinyGW
+  VERSION: "0.1"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+
+      - name: build
+        shell: msys2 {0}
+        run: ./build.sh
+
+      - name: test
+        shell: cmd
+        run: |
+          echo #include ^<stdio.h^> > t.c
+          echo #include ^<math.h^> >> t.c
+          echo int main(){printf("%%f\n",sqrt(2));return 0;} >> t.c
+          tinygw\bin\gcc.exe -o t.exe t.c -lm && t.exe
+          tinygw\bin\gcc.exe -Ofast -march=native -flto -funroll-loops -ftracer -o t2.exe t.c -lm && t2.exe
+          tinygw\bin\gcc.exe -g -o t3.exe t.c -lm && tinygw\bin\gdb.exe --batch -ex "r" -ex "q" t3.exe 2>nul || echo [GDB failed]
+
+      - name: release
+        shell: pwsh
+        run: |
+          & "C:\Program Files\7-Zip\7z.exe" a -t7z -mx=9 "${{ env.NAME }}-${{ env.VERSION }}-x86_64.7z" tinygw
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NAME }}-x86_64
+          path: ${{ env.NAME }}-*.7z
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*/*
+          name: "download ${{ env.NAME }}"
+          tag_name: ${{ env.VERSION }}
+          body: |
+            # version ${{ env.VERSION }}
+            
+            ### Includes:
+            - Latest GCC with full optimization support
+            - Latest GDB for debugging
+            - Latest MinGW
+            
+            ## [${{ env.NAME }} for Windows x86_64](https://github.com/${{ github.repository }}/releases/download/${{ env.VERSION }}/${{ env.NAME }}-${{ env.VERSION }}-x86_64.7z)
