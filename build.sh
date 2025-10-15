@@ -8,7 +8,7 @@ set -euo pipefail
 echo "> building TinyGW..."
 
 echo "> installing packages..."
-pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-binutils mingw-w64-x86_64-gdb
+pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-binutils mingw-w64-x86_64-gdb
 echo "> packages installed."
 
 M="/mingw64"
@@ -42,9 +42,13 @@ echo " done"
 
 echo -n "> copying headers..."
 cp $G/include/*.h $I/
-cp -r $M/include/* $I/
+mkdir -p tinygw/$N/include
+cp -r $M/include/* tinygw/$N/include/
 for dir in c++ ddk gdiplus GL isl KHR libiberty lzma ncurses ncursesw openssl python* readline tcl* tk* tre wrl X11 gdb qt gtk* glib* pango* cairo* atk*;
-	do rm -rf $I/$dir; done
+	do 
+		rm -rf $I/$dir
+		rm -rf tinygw/$N/include/$dir
+	done
 echo " done"
 
 echo -n "> copying objects and libraries..."
@@ -60,6 +64,7 @@ echo ""
 echo "> build complete:"
 echo "	bin dlls: $(ls tinygw/bin/*.dll 2>/dev/null | wc -l)"
 echo "	lib dlls: $(ls tinygw/lib/gcc/$N/$V/*.dll 2>/dev/null | wc -l)"
-echo "	headers: $(find $I -type f -name '*.h' 2>/dev/null | wc -l)"
+echo "	gcc headers: $(find $I -type f -name '*.h' 2>/dev/null | wc -l)"
+echo "	mingw headers: $(find tinygw/$N/include/ -type f -name '*.h' 2>/dev/null | wc -l)"
 echo "	libraries: $(ls tinygw/$N/lib/*.a 2>/dev/null | wc -l)"
 echo "	size: $(du -sh tinygw | cut -f1)"
