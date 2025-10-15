@@ -13,7 +13,7 @@ permissions:
 
 env:
   NAME: TinyGW
-  VERSION: "0.1"
+  VERSION: "0.2"
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
       - name: release
         shell: pwsh
         run: |
-          & "C:\Program Files\7-Zip\7z.exe" a -t7z -mx=9 "${{ env.NAME }}-${{ env.VERSION }}-x86_64.7z" tinygw
+          & "C:\Program Files\7-Zip\7z.exe" a -mx=9 "${{ env.NAME }}-${{ env.VERSION }}-x86_64.7z" tinygw
 
       - uses: actions/upload-artifact@v4
         with:
@@ -68,8 +68,8 @@ jobs:
             # version ${{ env.VERSION }}
             
             ### Includes:
-            - Latest GCC with full optimization support
-            - Latest GDB for debugging
-            - Latest MinGW
+            - GCC with full optimization support (v15.2)
+            - GDB for debugging (v16.3)
+            - MinGW (v13.0)
             
             ## [${{ env.NAME }} for Windows x86_64](https://github.com/${{ github.repository }}/releases/download/${{ env.VERSION }}/${{ env.NAME }}-${{ env.VERSION }}-x86_64.7z)
