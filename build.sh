@@ -56,7 +56,7 @@ for obj in crt*.o libgcc*.a;
 	do cp $G/$obj tinygw/lib/gcc/$N/$V/; done
 for obj in {crt2,crtbegin,crtend,default-manifest,dllcrt2}.o;
 	do cp "$M/lib/$obj" tinygw/$N/lib/; done
-for lib in {libmingw32,libmingwex,libmsvcrt,libkernel32,libpthread,libuser32,libgdi32,libadvapi32,libshell32,libm,libmoldname}.a;
+for lib in {libmingw32,libmingwex,libmsvcrt,libkernel32,libpthread,libuser32,libgdi32,libadvapi32,libshell32,libm,libmoldname,libgcc_s}.a;
 	do cp "$M/lib/$lib" tinygw/$N/lib/; done
 echo " done"
 
@@ -69,3 +69,4 @@ echo "	mingw headers: $(find tinygw/$N/include/ -type f -name '*.h' 2>/dev/null 
 echo "	libraries: $(ls tinygw/$N/lib/*.a 2>/dev/null | wc -l)"
 
 echo "	size: $(du -sh tinygw | cut -f1)"
+
