@@ -1,6 +1,14 @@
-###----------------------------------------------------------------------------
-# TinyGW Build Script - @ENDESGA - 2025 - Made in NZ - CC0 - foss forever
-###----------------------------------------------------------------------------
+################################################################
+##
+##  TinyGW Build Script
+##
+##  author(s):
+##  ENDESGA - https://x.com/ENDESGA | https://bsky.app/profile/endesga.bsky.social
+##
+##  https://github.com/ENDESGA/TinyGW
+##  2025 - CC0 - FOSS forever
+##
+
 name: build TinyGW
 
 on:
@@ -13,7 +21,7 @@ permissions:
 
 env:
   NAME: TinyGW
-  VERSION: "0.2"
+  VERSION: "0.3"
 
 jobs:
   build:
