@@ -22,6 +22,7 @@ MGW="/mingw64"
 TGW="tinygw"
 XWMGW="x86_64-w64-mingw32"
 GCCV=$(gcc -dumpversion)
+PYV=$(/mingw64/bin/python -c 'import sys;print(f"python{sys.version_info.major}.{sys.version_info.minor}")')
 
 MBIN="$MGW/bin"
 TBIN="$TGW/bin"
@@ -29,8 +30,8 @@ MLGCC="$MGW/lib/gcc/$XWMGW/$GCCV"
 TLGCC="$TGW/lib/gcc/$XWMGW/$GCCV"
 TMGW="$TGW/$XWMGW"
 TGINC="$TLGCC/include"
-MPY="$MGW/lib/python3.12"
-TPY="$TGW/lib/python3.12"
+MPY="$MGW/lib/$PYV"
+TPY="$TGW/lib/$PYV"
 
 echo -n "> creating directory structure..."
 rm -rf "$TGW"
