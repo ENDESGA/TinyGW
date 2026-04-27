@@ -7,7 +7,7 @@
 ##  ENDESGA - https://x.com/ENDESGA | https://bsky.app/profile/endesga.bsky.social
 ##
 ##  https://github.com/ENDESGA/TinyGW
-##  2025 - CC0 - FOSS forever
+##  2026 - CC0 - FOSS forever
 ##
 
 set -euo pipefail
@@ -77,7 +77,7 @@ done
 for obj in {crt2,crtbegin,crtend,default-manifest,dllcrt2}.o; do
 	cp "$MGW/lib/$obj" "$TMGW/lib/"
 done
-for lib in {libmingw32,libmingwex,libmsvcrt,libkernel32,libpthread,libuser32,libgdi32,libadvapi32,libshell32,libm,libmoldname,libgcc_s,libwinmm}.a; do
+for lib in {libmingw32,libmingwex,libmsvcrt,libkernel32,libpthread,libuser32,libgdi32,libadvapi32,libshell32,libm,libmoldname,libgcc_s,libwinmm,libcomdlg32}.a; do
 	cp "$MGW/lib/$lib" "$TMGW/lib/"
 done
 echo " done"
