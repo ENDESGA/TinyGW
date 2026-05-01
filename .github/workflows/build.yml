@@ -6,7 +6,7 @@
 ##  ENDESGA - https://x.com/ENDESGA | https://bsky.app/profile/endesga.bsky.social
 ##
 ##  https://github.com/ENDESGA/TinyGW
-##  2025 - CC0 - FOSS forever
+##  2026 - CC0 - FOSS forever
 ##
 
 name: build TinyGW
@@ -21,7 +21,7 @@ permissions:
 
 env:
   NAME: TinyGW
-  VERSION: "0.3"
+  VERSION: "15.2.0"
 
 jobs:
   build:
@@ -76,8 +76,8 @@ jobs:
             # version ${{ env.VERSION }}
             
             ### Includes:
-            - GCC with full optimization support (v15.2)
-            - GDB for debugging (v16.3)
-            - MinGW (v13.0)
+            - GCC with full optimization support
+            - GDB for debugging
+            - MinGW
             
             ## [${{ env.NAME }} for Windows x86_64](https://github.com/${{ github.repository }}/releases/download/${{ env.VERSION }}/${{ env.NAME }}-${{ env.VERSION }}-x86_64.7z)
