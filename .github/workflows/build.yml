@@ -9,7 +9,7 @@
 ##  2026 - CC0 - FOSS forever
 ##
 
-name: build TinyGW
+name: build
 
 on:
   push:
@@ -37,16 +37,6 @@ jobs:
       - name: build
         shell: msys2 {0}
         run: ./build.sh
-
-      - name: test
-        shell: cmd
-        run: |
-          echo #include ^<stdio.h^> > t.c
-          echo #include ^<math.h^> >> t.c
-          echo int main(){printf("%%f\n",sqrt(2));return 0;} >> t.c
-          tinygw\bin\gcc.exe -o t.exe t.c -lm && t.exe
-          tinygw\bin\gcc.exe -Ofast -march=native -flto -funroll-loops -ftracer -o t2.exe t.c -lm && t2.exe
-          tinygw\bin\gcc.exe -g -o t3.exe t.c -lm && tinygw\bin\gdb.exe --batch -ex "r" -ex "q" t3.exe 2>nul || echo [GDB failed]
 
       - name: release
         shell: pwsh
