@@ -48,11 +48,12 @@ done
 for bin in {cc1,collect2,lto-wrapper,lto1}.exe; do
 	cp "$MLGCC/$bin" "$TLGCC/"
 done
-cp $MLGCC/liblto_plugin*.dll "$TLGCC/"
+cp "$MLGCC/liblto_plugin*.dll" "$TLGCC/"
+cp "$MBIN/mingw32-make.exe" "$TBIN/make.exe"
 echo " done"
 
 echo -n "> copying dynamic-link libraries..."
-ldd "$TBIN"/{gcc,gdb}.exe | awk '/mingw64/ && $3 {print $3}' | sort -u | while read dll; do
+ldd "$TBIN"/{gcc,gdb,make}.exe | awk '/mingw64/ && $3 {print $3}' | sort -u | while read dll; do
 	cp "$dll" "$TBIN/"
 done
 ldd "$TLGCC"/{as,ld,cc1,collect2,lto-wrapper,lto1}.exe | awk '/mingw64/ && $3 {print $3}' | sort -u | while read dll; do
