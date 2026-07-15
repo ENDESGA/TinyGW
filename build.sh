@@ -15,7 +15,7 @@ set -euo pipefail
 echo "> building TinyGW..."
 
 echo "> installing packages..."
-pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-binutils mingw-w64-x86_64-gdb
+pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-binutils mingw-w64-x86_64-gdb mingw-w64-x86_64-make
 echo "> packages installed."
 
 MGW="/mingw64"
