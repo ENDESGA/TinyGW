@@ -48,7 +48,7 @@ done
 for bin in {cc1,collect2,lto-wrapper,lto1}.exe; do
 	cp "$MLGCC/$bin" "$TLGCC/"
 done
-cp "$MLGCC/liblto_plugin*.dll" "$TLGCC/"
+cp $MLGCC/liblto_plugin*.dll "$TLGCC/"
 cp "$MBIN/mingw32-make.exe" "$TBIN/make.exe"
 echo " done"
 
